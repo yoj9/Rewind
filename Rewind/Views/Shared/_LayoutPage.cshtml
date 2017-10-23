@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/themes/base/theme.css" rel="stylesheet" />
+    <link href="~/Content/CustomStyles.css" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/jquery-1.12.4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")" type="text/javascript"></script>
+  @*  @RenderSection("Scripts",true)*@
+   
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+        <div class="headerstyles">
+            @Html.Partial("_Header")
+        </div>
+        <div class="bodystyles">
+            @RenderBody()
+        </div>
+        <div class="footerstyles">
+            <p>&copy; @DateTime.Now.Year - Yo</p>
+        </div>
+</body>
+</html>
+
+
+

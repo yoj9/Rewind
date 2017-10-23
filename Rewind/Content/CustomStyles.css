@@ -1,0 +1,18 @@
+﻿.headerstyles {
+    background-color: #fedd29;
+    margin:0;
+    background-repeat:repeat;
+}
+
+.footerstyles {
+    background-color: #1A2930;
+    margin: 0;
+    background-repeat: repeat;
+}
+
+.bodystyles {
+    /*background-image: url('../Images/background.jpg');*/
+    background-color: gainsboro;
+    margin: 0;
+    background-repeat: repeat;
+}

@@ -763,11 +763,12 @@ pre code {
   margin-left: auto;
 }
 
-.container:before,
-.container:after {
-  display: table;
-  content: " ";
-}
+    .container:before,
+    .container:after {
+        display: table;
+        content: " ";
+        background-image: url('../Images/header.jpg');
+    }
 
 .container:after {
   clear: both;

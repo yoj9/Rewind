@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+
+<table align="center">
+    <tr><td>@Html.Label("User Name")</td><td>@Html.TextBox("uid")</td></tr>
+    <tr><td>@Html.Label("Password")</td><td>@Html.Password("userpwd")</td></tr>
+    <tr><td></td><td><input type="submit" value="Sign Up" class="btn btn-default" /></td></tr>
+</table>
+}
