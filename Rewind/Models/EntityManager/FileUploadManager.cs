@@ -14,7 +14,7 @@ namespace Rewind.Models.EntityManager
         {
             using (ImageBrowserEntities db = new ImageBrowserEntities())
             {
-                //Preparation of image
+                //Preparation of image   
                 //incoming image to Converting into byte
                 byte[] bytes;
                 using (BinaryReader br = new BinaryReader(postedFile.InputStream))
