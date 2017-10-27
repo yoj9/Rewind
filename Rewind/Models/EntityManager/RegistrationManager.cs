@@ -42,5 +42,18 @@ namespace Rewind.Models.EntityManager
 
         }
 
+        public bool ValidateUser(string uName, string pwd)
+        {
+            using (ImageBrowserEntities db = new ImageBrowserEntities())
+            {
+                if (db.Registrations.Any(o => o.username.Equals(uName) && o.pwd.Equals(pwd)))
+                    return true;
+                else
+                    return false;
+            }
+
+        }
+
+
     }
 }

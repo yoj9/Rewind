@@ -27,11 +27,6 @@ namespace Rewind.Models.DB
     
         public virtual DbSet<FileUploader> FileUploaders { get; set; }
         public virtual DbSet<Registration> Registrations { get; set; }
-
-        public System.Data.Entity.DbSet<Rewind.Models.ViewModel.RegistrationViewModel> RegistrationViewModels { get; set; }
-
-        public System.Data.Entity.DbSet<Rewind.Models.ViewModel.FeedbackViewModel> FeedbackViewModels { get; set; }
-
-        public System.Data.Entity.DbSet<Rewind.Models.ViewModel.FileUploadViewModel> FileUploadViewModels { get; set; }
+        public virtual DbSet<Feedback> Feedbacks { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace Rewind.Models.DB
         public Registration()
         {
             this.FileUploaders = new HashSet<FileUploader>();
+            this.Feedbacks = new HashSet<Feedback>();
         }
     
         public int regid { get; set; }
@@ -32,5 +33,7 @@ namespace Rewind.Models.DB
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FileUploader> FileUploaders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
     }
 }

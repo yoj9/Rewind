@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Rewind.Models.EntityManager;
 
 namespace Rewind.Controllers
 {
@@ -16,7 +17,22 @@ namespace Rewind.Controllers
         [HttpPost]
         public ActionResult Login(FormCollection logindetails)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                RegistrationManager RM = new RegistrationManager();
+
+                if (RM.IsUserNameExists(logindetails[0]))
+                {
+                  bool check =  RM.ValidateUser(logindetails[0], logindetails[1]);
+
+                    if (check)
+                    {
+                        return View("UploadMultimedia");
+                    }
+
+                }
+            }
+            return View("");
         }
 
     }

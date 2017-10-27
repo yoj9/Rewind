@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Rewind.Models.ViewModel.FileUploadViewModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+</head>
+<body>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="postedFile" />
+        <input type="submit" id="btnUpload" value="Upload" />
+    }
+    @using (Html.BeginForm("DownloadFile", "FileUpload", FormMethod.Post))
+    {
+        <input type="hidden" id="hfFileId" name="file_id" />
+        <input type="submit" id="btnDownload" value="Download" style="display:none" />
+    }
+    <hr />
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <th style="width:120px">File Name</th>
+            <th style="width:80px">Download</th>
+        </tr>
+        @if (Model.Count() > 0)
+        {
+            foreach (var file in Model)
+            {
+                <tr>
+                    <td>@file.file_filename</td>
+                    <td><a href="javascript:;" onclick="DownloadFile(@file.file_id)">Download</a></td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+        }
+    </table>
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        function DownloadFile(file_id) {
+            $("#hfFileId").val(file_id);
+            $("#btnDownload")[0].click();
+        };
+    </script> 
+</body>
+</html>

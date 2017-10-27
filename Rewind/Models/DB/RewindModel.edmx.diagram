@@ -8,6 +8,10 @@
         <EntityTypeShape EntityType="ImageBrowserModel.FileUploader" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ImageBrowserModel.Registration" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="ImageBrowserModel.FK_FileUploader_Registration" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ImageBrowserModel.Feedback" Width="1.5" PointX="5.25" PointY="1.5" />
+        <AssociationConnector Association="ImageBrowserModel.FK_Feedback_FileUploader" />
+        <AssociationConnector Association="ImageBrowserModel.FK_Feedback_Feedback" />
+        <AssociationConnector Association="ImageBrowserModel.FK_Feedback_FileUploader1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

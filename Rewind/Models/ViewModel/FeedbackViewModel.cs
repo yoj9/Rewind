@@ -20,6 +20,7 @@ namespace Rewind.Models.ViewModel
 
         public DateTime feedback_date { get; set; }
 
+        public int user_id { get; set; }
 
     }
 }

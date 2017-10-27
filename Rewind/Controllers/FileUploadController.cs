@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Rewind.Models.DB;
 using Rewind.Models.ViewModel;
+using Rewind.Models.EntityManager;
 
 namespace Rewind.Controllers
 {
@@ -15,28 +16,36 @@ namespace Rewind.Controllers
     {
         public ActionResult UploadMultimedia()
         {
-            var model = new FileUploadViewModel();
-            return View(model);
+            return View();
         }
 
         [HttpPost]
-        public ActionResult UploadMultimedia(FileUploadViewModel model)
+        public ActionResult UploadMultimedia(FileUploadViewModel model,HttpPostedFileBase file)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return  View(model);
+                FileUploadManager FUM = new FileUploadManager();
+                FUM.fileUpload(model, file);
             }
-
-            byte[] uploadedFile = new byte[model.file_multimedia.InputStream.Length];
-            model.file_multimedia.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-
-           // fileUpload(uploadedFile);
-
-
-            // now you could pass the byte array to your model and store wherever 
-            // you intended to store it
-
             return Content("Thanks for uploading the file");
+        }
+
+        public ActionResult DisplayMultimedia()
+        {
+            return View(FileUploadManager.GetFiles());
+        }
+
+
+        [HttpPost]
+        public ActionResult DownloadFile(int? file_id)
+        {
+            if (ModelState.IsValid)
+            {
+                FileUploadManager FUM = new FileUploadManager();
+               // return File(FUM.Download(file_id),);
+                return View();
+            }
+            return null;
         }
     }
 }

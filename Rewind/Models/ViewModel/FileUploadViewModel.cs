@@ -15,12 +15,13 @@ namespace Rewind.Models.ViewModel
         public string file_filename { get; set; }
 
         [Column(TypeName = "image")]
-        public HttpPostedFileBase file_multimedia { get; set; }
+        public byte[] file_multimedia { get; set; }
 
         public DateTime file_uploaddate { get; set; }
 
         public string file_location { get; set; }
 
+        public int registration_id { get; set; }
        
 
 

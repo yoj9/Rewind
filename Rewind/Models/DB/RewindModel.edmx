@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ImageBrowserModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="feedbackid" />
+          </Key>
+          <Property Name="feedbackid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="comments" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="FileUploader">
           <Key>
             <PropertyRef Name="id" />
@@ -14,6 +24,7 @@
           <Property Name="filedata" Type="varbinary(max)" Nullable="false" />
           <Property Name="uploadtime" Type="datetime" Nullable="false" />
           <Property Name="regisid" Type="int" Nullable="false" />
+          <Property Name="location" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="Registration">
           <Key>
@@ -29,6 +40,18 @@
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="username" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Feedback_Registration">
+          <End Role="Registration" Type="Self.Registration" Multiplicity="1" />
+          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Registration">
+              <PropertyRef Name="regid" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FileUploader_Registration">
           <End Role="Registration" Type="Self.Registration" Multiplicity="1" />
           <End Role="FileUploader" Type="Self.FileUploader" Multiplicity="*" />
@@ -42,8 +65,13 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ImageBrowserModelStoreContainer">
+          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FileUploader" EntityType="Self.FileUploader" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Registration" EntityType="Self.Registration" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Feedback_Registration" Association="Self.FK_Feedback_Registration">
+            <End Role="Registration" EntitySet="Registration" />
+            <End Role="Feedback" EntitySet="Feedback" />
+          </AssociationSet>
           <AssociationSet Name="FK_FileUploader_Registration" Association="Self.FK_FileUploader_Registration">
             <End Role="Registration" EntitySet="Registration" />
             <End Role="FileUploader" EntitySet="FileUploader" />
@@ -63,6 +91,8 @@
           <Property Name="uploadtime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="regisid" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Registration" Relationship="Self.FK_FileUploader_Registration" FromRole="FileUploader" ToRole="Registration" />
+          <Property Name="location" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Feedbacks" Relationship="ImageBrowserModel.FK_Feedback_FileUploader" FromRole="FileUploader" ToRole="Feedback" />
         </EntityType>
         <EntityType Name="Registration">
           <Key>
@@ -78,6 +108,7 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="FileUploaders" Relationship="Self.FK_FileUploader_Registration" FromRole="Registration" ToRole="FileUploader" />
           <Property Name="username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Feedbacks" Relationship="ImageBrowserModel.FK_Feedback_FileUploader1" FromRole="Registration" ToRole="Feedback" />
         </EntityType>
         <Association Name="FK_FileUploader_Registration">
           <End Role="Registration" Type="Self.Registration" Multiplicity="1" />
@@ -98,7 +129,70 @@
             <End Role="Registration" EntitySet="Registrations" />
             <End Role="FileUploader" EntitySet="FileUploaders" />
           </AssociationSet>
+          <EntitySet Name="Feedbacks" EntityType="ImageBrowserModel.Feedback" />
+          <AssociationSet Name="FK_Feedback_FileUploader" Association="ImageBrowserModel.FK_Feedback_FileUploader">
+            <End Role="FileUploader" EntitySet="FileUploaders" />
+            <End Role="Feedback" EntitySet="Feedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feedback_Feedback" Association="ImageBrowserModel.FK_Feedback_Feedback">
+            <End Role="Feedback" EntitySet="Feedbacks" />
+            <End Role="Feedback1" EntitySet="Feedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feedback_FileUploader1" Association="ImageBrowserModel.FK_Feedback_FileUploader1">
+            <End Role="Registration" EntitySet="Registrations" />
+            <End Role="Feedback" EntitySet="Feedbacks" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="feedbackid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="comments" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="feedbackid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="FileUploader" Relationship="ImageBrowserModel.FK_Feedback_FileUploader" FromRole="Feedback" ToRole="FileUploader" />
+          <NavigationProperty Name="Feedback1" Relationship="ImageBrowserModel.FK_Feedback_Feedback" FromRole="Feedback" ToRole="Feedback1" />
+          <NavigationProperty Name="Feedback2" Relationship="ImageBrowserModel.FK_Feedback_Feedback" FromRole="Feedback1" ToRole="Feedback" />
+          <NavigationProperty Name="Registration" Relationship="ImageBrowserModel.FK_Feedback_FileUploader1" FromRole="Feedback" ToRole="Registration" />
+        </EntityType>
+        <Association Name="FK_Feedback_FileUploader">
+          <End Type="ImageBrowserModel.FileUploader" Role="FileUploader" Multiplicity="1" />
+          <End Type="ImageBrowserModel.Feedback" Role="Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileUploader">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feedback_Feedback">
+          <End Type="ImageBrowserModel.Feedback" Role="Feedback" Multiplicity="1" />
+          <End Type="ImageBrowserModel.Feedback" Role="Feedback1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Feedback">
+              <PropertyRef Name="feedbackid" />
+            </Principal>
+            <Dependent Role="Feedback1">
+              <PropertyRef Name="feedbackid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feedback_FileUploader1">
+          <End Type="ImageBrowserModel.Registration" Role="Registration" Multiplicity="1" />
+          <End Type="ImageBrowserModel.Feedback" Role="Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Registration">
+              <PropertyRef Name="regid" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -108,6 +202,7 @@
           <EntitySetMapping Name="FileUploaders">
             <EntityTypeMapping TypeName="ImageBrowserModel.FileUploader">
               <MappingFragment StoreEntitySet="FileUploader">
+                <ScalarProperty Name="location" ColumnName="location" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="filename" ColumnName="filename" />
                 <ScalarProperty Name="filedata" ColumnName="filedata" />
@@ -128,6 +223,17 @@
                 <ScalarProperty Name="gender" ColumnName="gender" />
                 <ScalarProperty Name="pwd" ColumnName="pwd" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="ImageBrowserModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="feedbackid" ColumnName="feedbackid" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

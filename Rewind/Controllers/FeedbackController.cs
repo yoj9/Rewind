@@ -30,7 +30,7 @@ namespace Rewind.Controllers
             {
                 using (ImageBrowserEntities db = new ImageBrowserEntities())
                 {
-                    db.FeedbackViewModels.Add(feedbackViewModel);
+                   // db.FeedbackViewModel.Add(feedbackViewModel);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }

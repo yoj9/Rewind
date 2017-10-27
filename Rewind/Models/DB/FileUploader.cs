@@ -14,12 +14,21 @@ namespace Rewind.Models.DB
     
     public partial class FileUploader
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public FileUploader()
+        {
+            this.Feedbacks = new HashSet<Feedback>();
+        }
+    
         public int id { get; set; }
         public string filename { get; set; }
         public byte[] filedata { get; set; }
         public System.DateTime uploadtime { get; set; }
         public int regisid { get; set; }
+        public string location { get; set; }
     
         public virtual Registration Registration { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
     }
 }

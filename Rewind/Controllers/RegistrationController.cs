@@ -28,7 +28,7 @@ namespace Rewind.Controllers
                 {
                     regManager.AddUserAccount(RVM);
                     FormsAuthentication.SetAuthCookie(RVM.reg_username, false);
-                    return RedirectToAction("Welcome", "Home");
+                    return RedirectToAction("Login", "Home");
                 }
                 else
                 {

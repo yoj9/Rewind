@@ -157,6 +157,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DB\Feedback.cs">
+      <DependentUpon>RewindModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DB\FileUploader.cs">
       <DependentUpon>RewindModel.tt</DependentUpon>
     </Compile>
@@ -234,9 +237,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\footer.png" />
-    <Content Include="Images\header.jpg" />
-    <Content Include="Images\background.jpg" />
     <Content Include="Models\DB\RewindModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RewindModel.Context.cs</LastGenOutput>
@@ -293,11 +293,8 @@
     <Content Include="Views\Registration\NewUser.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Feedback\Create.cshtml" />
-    <Content Include="Views\FileUpload\Create.cshtml" />
-    <Content Include="Views\FileUpload\Delete.cshtml" />
-    <Content Include="Views\FileUpload\Details.cshtml" />
-    <Content Include="Views\FileUpload\Edit.cshtml" />
-    <Content Include="Views\FileUpload\Index.cshtml" />
+    <Content Include="Views\FileUpload\UploadMultimedia.cshtml" />
+    <Content Include="Views\FileUpload\DisplayMultimedia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
